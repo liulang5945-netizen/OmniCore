@@ -1,0 +1,23 @@
+[
+  {
+    "timestamp": "2026-06-05T13:17:52.469713",
+    "event_type": "feed",
+    "trigger": "need_hunger",
+    "needs_before": {
+      "hunger": 70.0,
+      "fatigue": 34.0,
+      "boredom": 52.0,
+      "stress": 0,
+      "curiosity": 58.0
+    },
+    "needs_after": {
+      "hunger": 30.0,
+      "fatigue": 39.0,
+      "boredom": 42.0,
+      "stress": 0,
+      "curiosity": 68.0
+    },
+    "duration_seconds": 0.1,
+    "success": true
+  }
+]

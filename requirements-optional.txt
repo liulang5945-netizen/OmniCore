@@ -1,0 +1,60 @@
+# OmniCore 智核工作站 - 可选依赖
+# 按需安装: pip install -r requirements-optional.txt
+
+# ===== GPU 加速（需 CUDA 环境） =====
+flash-attn>=2.0.0              # Ampere+ GPU 注意力加速
+# 安装前提: 需要 CUDA Toolkit + Visual Studio Build Tools
+# pip install flash-attn --no-build-isolation
+
+# ===== AMD GPU 支持（仅 Windows） =====
+torch-directml>=0.2.0          # AMD GPU DirectML 支持
+
+# ===== Windows 原生 OCR（仅 Windows 10/11） =====
+winrt-Windows-Media-Ocr>=0.0.1
+winrt-Windows-Graphics-Imaging>=0.0.1
+winrt-Windows-Storage>=0.0.1
+winrt-Windows-Globalization>=0.0.1
+
+# ===== 文件解析增强 =====
+pdfminer.six>=20221105         # PDF 文本提取增强
+python-pptx>=0.6.21            # PPT 文件解析
+ebooklib>=0.18                 # EPUB 电子书解析
+striprtf>=0.0.26               # RTF 文件解析
+PyMuPDF>=1.23.0                # PDF 文本提取 + 图片渲染 OCR
+pytesseract>=0.3.10            # Tesseract OCR（需单独安装引擎）
+textract>=1.6.5                # .doc 文件解析
+olefile>=0.47                  # .doc 文件备用解析
+
+# ===== 搜索增强 =====
+google-search-results>=2.4.0   # Serper API 搜索
+
+# ===== 训练辅助 =====
+jsonlines>=4.0.0               # JSONL 数据集解析
+
+# ===== 量化投资（stock_brain 插件） =====
+akshare>=1.12.0                # A股数据
+scikit-learn>=1.3.0            # 特征处理、评估指标
+optuna>=3.5.0                  # 贝叶斯超参数优化
+plotly>=5.18.0                 # 回测报告交互式图表
+easytrader>=0.21               # 同花顺/东方财富自动交易（可选）
+joblib>=1.3.0                  # sklearn 模型安全序列化
+
+# ===== 语音合成/识别 =====
+edge-tts>=6.1.0                # 微软 Edge TTS 语音合成
+pyttsx3>=2.90                  # 离线 TTS 备用方案
+SpeechRecognition>=3.10.0      # 麦克风语音转文字
+
+# ===== 视频/音频处理 =====
+opencv-python>=4.8.0           # 视频帧提取
+librosa>=0.10.0                # 音频加载与处理
+moviepy>=1.0.3                 # 视频→音频提取
+
+# ===== 知识提取 =====
+youtube-transcript-api>=0.6.0  # YouTube 字幕提取
+
+# ===== GGUF 推理 =====
+# 安装前需先设置编译参数（启用 Vulkan GPU 加速）：
+#   set CMAKE_ARGS="-DLLAMA_VULKAN=on"
+#   pip install llama-cpp-python
+# 纯 CPU 模式直接 pip install llama-cpp-python 即可
+llama-cpp-python>=0.2.0

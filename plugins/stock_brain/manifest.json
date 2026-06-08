@@ -1,0 +1,57 @@
+{
+  "id": "stock_brain",
+  "name": "Stock Brain - 智能量化投资",
+  "version": "1.0.0",
+  "description": "自学习量化投资系统：历史数据拟合 → 政策事件编码 → 每日盘前预测 → 收盘复盘 → 算法自调整。支持不同本金的资本适配和风险偏好控制。",
+  "author": "OmniCore",
+  "enabled": true,
+  "tools": [
+    {
+      "name": "brain_learn",
+      "description": "启动历史自学习循环：采集数据 → 训练模型 → 回测 → 参数优化 → 迭代"
+    },
+    {
+      "name": "brain_daily",
+      "description": "每日实战循环：盘前预测 / 盘中监控 / 收盘复盘"
+    },
+    {
+      "name": "brain_predict",
+      "description": "用训练好的模型预测指定股票走势"
+    },
+    {
+      "name": "brain_backtest",
+      "description": "回测策略在历史数据上的表现"
+    },
+    {
+      "name": "brain_report",
+      "description": "查看训练进度、复盘报告、胜率统计"
+    },
+    {
+      "name": "brain_scan",
+      "description": "用当前最优模型扫描全市场选股"
+    },
+    {
+      "name": "brain_risk",
+      "description": "设置/查看风险偏好参数"
+    },
+    {
+      "name": "brain_capital",
+      "description": "设置/查看本金与资本适配策略。输入金额或留空查看。"
+    },
+    {
+      "name": "brain_trade",
+      "description": "交易执行（支持模拟/同花顺/东方财富）。买入、卖出、查账户、查持仓"
+    },
+    {
+      "name": "brain_portfolio",
+      "description": "查看完整持仓报告（含盈亏分析和集中度检查）"
+    }
+  ],
+  "entry_point": "__init__.py",
+  "dependencies": [
+    "akshare>=1.12.0",
+    "scikit-learn>=1.3.0",
+    "optuna>=3.5.0",
+    "plotly>=5.18.0"
+  ]
+}

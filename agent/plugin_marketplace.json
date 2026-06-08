@@ -1,0 +1,117 @@
+{
+  "version": "1.0.0",
+  "description": "OmniCore Agent 插件市场 - 可远程更新的插件列表",
+  "categories": ["开发工具", "数据分析", "AI增强", "自动化", "系统工具"],
+  "plugins": [
+    {
+      "id": "code-formatter",
+      "name": "代码格式化",
+      "icon": "✨",
+      "category": "开发工具",
+      "description": "自动格式化 Python/JS/TS 代码，支持 Black/Prettier 风格",
+      "github": "https://gist.github.com/raw/code_formatter.py",
+      "tools": ["format_code"],
+      "author": "OmniCore",
+      "version": "1.0.0"
+    },
+    {
+      "id": "csv-analyzer",
+      "name": "CSV 数据分析",
+      "icon": "📊",
+      "category": "数据分析",
+      "description": "读取 CSV 文件并生成统计摘要、数据分布、异常值检测",
+      "github": "https://gist.github.com/raw/csv_analyzer.py",
+      "tools": ["analyze_csv", "csv_summary", "csv_plot"],
+      "author": "OmniCore",
+      "version": "1.0.0"
+    },
+    {
+      "id": "image-tools",
+      "name": "图片处理",
+      "icon": "🖼️",
+      "category": "自动化",
+      "description": "图片缩放、裁剪、格式转换、添加水印、OCR 文字识别",
+      "github": "https://gist.github.com/raw/image_tools.py",
+      "tools": ["resize_image", "crop_image", "convert_format", "add_watermark"],
+      "author": "OmniCore",
+      "version": "1.0.0"
+    },
+    {
+      "id": "api-tester",
+      "name": "API 测试工具",
+      "icon": "🔌",
+      "category": "开发工具",
+      "description": "发送 HTTP 请求测试 API 接口，支持 GET/POST/PUT/DELETE",
+      "github": "https://gist.github.com/raw/api_tester.py",
+      "tools": ["test_api", "api_batch_test"],
+      "author": "OmniCore",
+      "version": "1.0.0"
+    },
+    {
+      "id": "log-analyzer",
+      "name": "日志分析器",
+      "icon": "📋",
+      "category": "系统工具",
+      "description": "解析应用日志，提取错误模式、性能瓶颈、异常趋势",
+      "github": "https://gist.github.com/raw/log_analyzer.py",
+      "tools": ["analyze_log", "find_errors", "log_stats"],
+      "author": "OmniCore",
+      "version": "1.0.0"
+    },
+    {
+      "id": "markdown-tools",
+      "name": "Markdown 工具",
+      "icon": "📝",
+      "category": "开发工具",
+      "description": "Markdown 转 HTML/PDF、目录生成、链接检查、表格格式化",
+      "github": "https://gist.github.com/raw/md_tools.py",
+      "tools": ["md_to_html", "md_toc", "md_check_links"],
+      "author": "OmniCore",
+      "version": "1.0.0"
+    },
+    {
+      "id": "json-tools",
+      "name": "JSON 处理工具",
+      "icon": "🔧",
+      "category": "开发工具",
+      "description": "JSON 格式化、验证、路径查询(JMESPath)、Schema 生成",
+      "github": "https://gist.github.com/raw/json_tools.py",
+      "tools": ["format_json", "validate_json", "json_query", "json_schema"],
+      "author": "OmniCore",
+      "version": "1.0.0"
+    },
+    {
+      "id": "system-monitor",
+      "name": "系统监控",
+      "icon": "💻",
+      "category": "系统工具",
+      "description": "CPU/内存/磁盘监控，进程管理，端口检查",
+      "github": "https://gist.github.com/raw/system_monitor.py",
+      "tools": ["system_info", "process_list", "port_check", "disk_usage"],
+      "author": "OmniCore",
+      "version": "1.0.0"
+    },
+    {
+      "id": "text-processor",
+      "name": "文本处理",
+      "icon": "📄",
+      "category": "AI增强",
+      "description": "文本摘要、关键词提取、情感分析、文本相似度计算",
+      "github": "https://gist.github.com/raw/text_processor.py",
+      "tools": ["summarize_text", "extract_keywords", "text_similarity"],
+      "author": "OmniCore",
+      "version": "1.0.0"
+    },
+    {
+      "id": "git-workflow",
+      "name": "Git 工作流",
+      "icon": "🌿",
+      "category": "开发工具",
+      "description": "自动化 Git 操作：批量分支管理、冲突解决、提交规范化",
+      "github": "https://gist.github.com/raw/git_workflow.py",
+      "tools": ["git_batch_branch", "git_resolve_conflicts", "git_commit_check"],
+      "author": "OmniCore",
+      "version": "1.0.0"
+    }
+  ]
+}

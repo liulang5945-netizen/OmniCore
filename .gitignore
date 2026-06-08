@@ -1,0 +1,100 @@
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+*.spec
+.eggs/
+
+# ===== 虚拟环境 =====
+.venv/
+venv/
+ENV/
+env/
+
+# ===== Node.js =====
+node_modules/
+package-lock.json
+
+# ===== 临时脚本（不应提交） =====
+run_*.py
+patch*.py
+update*.py
+test_write.txt
+
+# ===== 构建产物 =====
+dist/
+build/
+*.exe
+*.msi
+*.dmg
+*.app
+
+# ===== IDE / 编辑器 =====
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# ===== 模型与检查点 =====
+growth_checkpoints/
+model_cache/
+gguf_models/
+*.pt
+*.gguf
+*.bin
+*.safetensors
+!modelself_checkpoints/**/best/
+
+# ===== 前端辅助脚本（不应提交） =====
+frontend/update_*.py
+frontend/write_*.py
+frontend/fix_ui.py
+frontend/*.b64
+
+# ===== 运行时数据 =====
+app_settings.json
+app.log
+*.log
+agent_workspace/
+rag_data/
+modelself/user_data/
+training_data/
+data/
+checkpoints/
+final_checkpoint.pt
+knowledge_store/
+
+# ===== 测试与缓存 =====
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# ===== 系统文件 =====
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.tmp
+*.bak
+*.swp
+
+# ===== 大型二进制 =====
+*.dll
+*.dylib
+*.pyd
+
+# ===== 允许的特殊文件 =====
+!frontend/src/
+!modelself_checkpoints/
+!plugins/
+!tests/

@@ -1,0 +1,13 @@
+{
+  "tasks_completed": 1,
+  "tasks_failed": 1,
+  "tool_calls_total": 0,
+  "tool_calls_correct": 0,
+  "evolution_cycles": 0,
+  "current_phase": "infant",
+  "knowledge_domains": {
+    "general": 1.0
+  },
+  "user_tool_preferences": {},
+  "user_task_types": {}
+}

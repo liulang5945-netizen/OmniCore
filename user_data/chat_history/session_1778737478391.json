@@ -1,0 +1,15 @@
+{
+  "messages": [
+    {
+      "role": "user",
+      "content": "[系统指令] 启动微调\n使用 data/sentaurus中文教程.pdf\nLoRA Rank: 8\nAlpha: 32\nEpochs: 3\nLR: 0.0002\nBatch: 4"
+    },
+    {
+      "role": "assistant",
+      "content": "```text\n⏳ 初始化训练...\n\n❌ 训练失败: HTTP 503: {\"detail\":\"模型未加载完成\"}```"
+    }
+  ],
+  "name": "新对话 1",
+  "updated_at": "2026-05-15T18:20:45.813182",
+  "created_at": "2026-05-14T14:07:44.949414"
+}

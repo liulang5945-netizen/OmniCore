@@ -1,0 +1,53 @@
+import { createRouter, createWebHashHistory } from 'vue-router'
+
+const routes = [
+  {
+    path: '/',
+    name: 'chat',
+    component: () => import('@/components/ChatView.vue'),
+    meta: { title: '聊天' }
+  },
+  {
+    path: '/kb',
+    name: 'kb',
+    component: () => import('@/views/KBView.vue'),
+    meta: { title: '知识库管理' }
+  },
+  {
+    path: '/train',
+    name: 'train',
+    component: () => import('@/views/TrainingView.vue'),
+    meta: { title: '微调训练' }
+  },
+  {
+    path: '/agent',
+    name: 'agent',
+    component: () => import('@/views/AgentConfigView.vue'),
+    meta: { title: '智能体配置' }
+  },
+  {
+    path: '/workspace',
+    name: 'workspace',
+    component: () => import('@/views/WorkspaceView.vue'),
+    meta: { title: 'IDE 工作区' }
+  },
+  {
+    path: '/market',
+    name: 'market',
+    component: () => import('@/components/ModelMarket.vue'),
+    meta: { title: '模型市场' }
+  },
+  {
+    path: '/settings',
+    name: 'settings',
+    component: () => import('@/views/SettingsView.vue'),
+    meta: { title: '系统设置' }
+  }
+]
+
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes,
+})
+
+export default router

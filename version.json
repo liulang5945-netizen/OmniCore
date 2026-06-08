@@ -1,0 +1,7 @@
+{
+  "version": "1.5.0",
+  "build_date": "2026-06-08",
+  "update_url": "",
+  "changelog": "v1.2: 记忆系统v2(情景+语义+压缩) | v1.3: 视觉引擎+工作流DAG编排 | v1.4: 插件系统+CI/CD | v1.5: 最终版封存",
+  "notes": "OmniCore v1.5.0-Final"
+}
