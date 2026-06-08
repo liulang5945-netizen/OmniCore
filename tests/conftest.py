@@ -12,7 +12,11 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 @pytest.fixture
 def client():
-    """创建 FastAPI 测试客户端"""
+    """创建 FastAPI 测试客户端（缺少 torch 时自动跳过）"""
+    try:
+        import torch  # noqa: F401
+    except ImportError:
+        pytest.skip("torch 未安装，跳过需要 API 客户端的测试")
     from fastapi.testclient import TestClient
     from api.app import app
     return TestClient(app)
