@@ -14,8 +14,6 @@ import threading
 import queue
 import traceback
 
-import torch
-
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import StreamingResponse
 
@@ -37,6 +35,7 @@ router = APIRouter()
 
 @router.get("/api/train/checkpoints")
 def list_checkpoints():
+    import torch
     """扫描检查点目录，返回已有的检查点列表"""
     try:
         checkpoint_dir = get_external_path("checkpoints")

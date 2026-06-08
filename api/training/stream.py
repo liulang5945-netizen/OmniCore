@@ -12,8 +12,6 @@ import queue
 import traceback
 import time
 
-import torch
-
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import StreamingResponse
 
