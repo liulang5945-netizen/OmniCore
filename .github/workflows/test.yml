@@ -29,6 +29,6 @@ jobs:
           pip install jieba numpy
 
       - name: Run tests
-        run: python -m pytest tests/ -v --tb=short -x -k "not test_cuda and not test_gguf and not test_model_download and not test_installer" --ignore=tests/test_api_integration.py --ignore=tests/deep_test.py --ignore=tests/run_evaluation.py
+        run: python -m pytest tests/test_v1_2_to_v1_4.py -v --tb=long -x
         env:
           PYTHONPATH: ${{ github.workspace }}

@@ -137,16 +137,40 @@ class ToolCallParser:
         return results
 
     def _extract_inline_json(self, text: str) -> list:
-        """提取行内 JSON 工具调用"""
+        """提取行内 JSON 工具调用（支持 tool/args 和 name/arguments 两种格式）"""
         import re
         results = []
-        pattern = r'\{[^{}]*?"tool"\s*:\s*"([^"]+)"[^{}]*?"args"\s*:\s*(\{[^}]*?\})[^{}]*?\}'
-        for tool_name, args_str in re.findall(pattern, text, re.DOTALL):
+
+        # 格式 1: {"tool": "xxx", "args": {...}}
+        pattern1 = r'\{[^{}]*?"tool"\s*:\s*"([^"]+)"[^{}]*?"args"\s*:\s*(\{[^}]*?\})[^{}]*?\}'
+        for tool_name, args_str in re.findall(pattern1, text, re.DOTALL):
             try:
                 args = json.loads(args_str)
             except json.JSONDecodeError:
                 args = {"input": args_str}
             results.append({"name": tool_name, "arguments": args})
+
+        # 格式 2: {"name": "xxx", "arguments": {...}}
+        pattern2 = r'\{[^{}]*?"name"\s*:\s*"([^"]+)"[^{}]*?"arguments"\s*:\s*(\{[^}]*?\})[^{}]*?\}'
+        for tool_name, args_str in re.findall(pattern2, text, re.DOTALL):
+            try:
+                args = json.loads(args_str)
+            except json.JSONDecodeError:
+                args = {"input": args_str}
+            results.append({"name": tool_name, "arguments": args})
+
+        # 格式 3: 整段文本就是合法 JSON
+        if not results:
+            try:
+                data = json.loads(text.strip())
+                if isinstance(data, dict) and ("name" in data or "tool" in data):
+                    name = data.get("name") or data.get("tool", "")
+                    args = data.get("arguments") or data.get("args", {})
+                    if name:
+                        results.append({"name": name, "arguments": args})
+            except json.JSONDecodeError:
+                pass
+
         return results
 
     def _extract_action_format(self, text: str) -> list:
