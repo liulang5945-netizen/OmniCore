@@ -280,6 +280,7 @@ class TestDatasetChecker:
 
 class TestBM25Index:
     def test_build_and_search(self):
+        pytest.importorskip("jieba", reason="BM25 中文分词需要 jieba")
         from tools.rag import BM25Index
         bm25 = BM25Index()
         chunks = [
