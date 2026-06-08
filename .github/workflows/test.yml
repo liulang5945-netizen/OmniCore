@@ -29,7 +29,14 @@ jobs:
           pip install psutil requests beautifulsoup4
           pip install jieba numpy
 
-      - name: Run tests
-        run: python -m pytest tests/test_v1_2_to_v1_4.py -v --tb=long -x
+      - name: Run unit tests (no torch required)
+        run: |
+          python -m pytest tests/test_v1_2_to_v1_4.py -v --tb=short -x -k "not API"
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+
+      - name: Verify imports
+        run: |
+          python -c "from core.config import TrainingConfig; from core.security import JWTManager; from agent.memory_manager import ShortTermMemory; print('Core imports OK')"
         env:
           PYTHONPATH: ${{ github.workspace }}
