@@ -231,9 +231,6 @@ def _register_routers():
     from .routes_auth import router as auth_router
     from .routes_workflows import router as workflows_router
     from .routes_plugins import router as plugins_router
-    from .routes_taiji import router as taiji_router
-    from .routes_taiji_model import router as taiji_model_router
-    from .training.taiji_train import router as taiji_train_router
 
     app.include_router(auth_router)
     app.include_router(workflows_router)
@@ -251,9 +248,6 @@ def _register_routers():
     app.include_router(agent_mcp_router)
     app.include_router(agent_memory_router)
     app.include_router(terminal_router)
-    app.include_router(taiji_router)
-    app.include_router(taiji_model_router)
-    app.include_router(taiji_train_router)
 
 _register_routers()
 

@@ -1,15 +1,5 @@
 """
-OmniCore ↔ 态极桥接层
-=======================
-
-连接 OmniCore 产品层和态极灵魂层。
-OmniCore 通过这个桥接层使用态极，而不是直接导入 taiji。
-
-使用方式：
-    from core.taiji_bridge import get_taiji_bridge
-    bridge = get_taiji_bridge()
-    bridge.initialize(model, tokenizer)
-    bridge.start_life()
+OmniCore ↔ 态极桥接层（态极已剥离，保留兼容接口）
 """
 import logging
 from typing import Optional
@@ -18,37 +8,16 @@ logger = logging.getLogger("TaijiBridge")
 
 
 class TaijiBridge:
-    """
-    OmniCore 与态极的桥接层。
-
-    翻译两个世界：
-    - OmniCore 的 app_state → 态极的 BodyCore
-    - OmniCore 的 API 请求 → 态极的生命活动
-    - 态极的事件 → OmniCore 的状态更新
-    """
+    """态极桥接层（态极模块已剥离，此接口返回空）"""
 
     def __init__(self):
         self._taiji = None
         self._initialized = False
 
     def initialize(self, model=None, tokenizer=None, device: str = "cpu"):
-        """
-        初始化态极。
-
-        Args:
-            model: 模型（从 app_state.model 获取）
-            tokenizer: 分词器（从 app_state.tokenizer 获取）
-            device: 计算设备
-        """
-        from taiji import TaijiCore
-
-        self._taiji = TaijiCore(
-            model=model,
-            tokenizer=tokenizer,
-            device=device,
-        )
-        self._initialized = True
-        logger.info("TaijiBridge initialized")
+        """态极已剥离，无法初始化"""
+        logger.warning("态极模块已剥离，TaijiBridge 无法初始化。如需态极功能，请安装态极模块。")
+        self._initialized = False
 
     @property
     def taiji(self):

@@ -49,7 +49,7 @@ class MCPManager:
 
     # ======================== 自动启动核心 MCP ========================
 
-    # 后台自动启动的 MCP 服务器（为态极引擎提供浏览器自动化和网页抓取能力）
+    # 后台自动启动的 MCP 服务器（提供浏览器自动化和网页抓取能力）
     CORE_MCP_SERVERS = ["playwright", "fetch"]
 
     def _auto_start_core_servers(self):
@@ -82,13 +82,6 @@ class MCPManager:
                         logger.warning(f"自动启动 MCP 服务器 '{server_id}' 失败: {result.get('message')}")
                 except Exception as e:
                     logger.warning(f"MCP 服务器 '{server_id}' 自动启动异常: {e}")
-
-            # MCP 服务器就绪后，刷新态极引擎的工具列表
-            try:
-                from core.model_loader import refresh_taiji_tools
-                refresh_taiji_tools()
-            except Exception as e:
-                logger.debug(f"刷新态极工具列表: {e}")
 
         t = threading.Thread(target=_do_start, daemon=True, name="mcp-auto-start")
         t.start()

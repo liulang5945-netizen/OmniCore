@@ -347,7 +347,13 @@ def _load_hf_model(config: TrainingConfig):
 
 def _load_self_model(config: TrainingConfig):
     """加载 ModelSelf 原生模型 + 态极多模态引擎"""
-    from taiji import load_model, NativeInferenceEngine
+    try:
+        from taiji import load_model, NativeInferenceEngine
+    except ImportError:
+        logger.warning("态极模块未安装，无法加载 ModelSelf 模型。请加载 HuggingFace 或 GGUF 格式的模型。")
+        app_state.mark_started()
+        return
+
     from agent.tool_registry import registry
 
     model_path = config.model_name

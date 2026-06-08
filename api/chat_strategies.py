@@ -72,85 +72,6 @@ async def _stream_cloud(request, prompt, collector):
         pass
     yield "data: [DONE]\n\n"
 
-def _get_external_generate_fn(request):
-    def external_generate(user_prompt):
-        from agent.agent import run_api_chat_stream
-        return run_api_chat_stream(
-            user_prompt, request.history or [], request.system_prompt or "",
-            request.api_base, request.api_key, request.api_model,
-        )
-    return external_generate
-
-async def _stream_taiji_hybrid(request, prompt, app_state, stop_event, collector):
-    taiji = app_state.get_taiji_engine()
-    tokenizer = app_state.get_tokenizer()
-    full_text = ""
-    has_cloud_api = bool(request.api_base and request.api_key and request.api_model)
-
-    # 准备完整的对话消息
-    messages = []
-    if request.system_prompt:
-        messages.append({"role": "system", "content": request.system_prompt})
-    for u, a in request.history:
-        if u: messages.append({"role": "user", "content": u})
-        if a: messages.append({"role": "assistant", "content": a})
-    messages.append({"role": "user", "content": prompt})
-
-    # 使用分词器模板格式化 (态极使用 Qwen ChatML)
-    from agent.token_optimizer import compress_history
-    compressed = compress_history(request.history, max_rounds=3, max_chars_per_round=300)
-    context_str = ""
-    if compressed:
-        context_str = ("【下文〓\n" + "\n".join(f"用户: {u}\n助手: {a}" for u, a in compressed) + "\n\n")
-
-    formatted_prompt = (f"{request.system_prompt}\n\n{context_str}"
-                        f"### Instruction:\n{prompt}\n### Response:\n")
-
-    if has_cloud_api:
-        from taiji.hybrid_engine import HybridEngine
-        hybrid = HybridEngine(
-            taiji_engine=taiji,
-            data_collector=collector,
-            save_path=get_external_path(os.path.join("taiji", "evolution_data", "hybrid_training.jsonl")),
-        )
-        try:
-            for chunk in hybrid.generate_hybrid_stream(
-                prompt=prompt,
-                external_generate_fn=_get_external_generate_fn(request),
-                system_prompt=request.system_prompt or "",
-                history=request.history,
-                max_new_tokens=512,
-                stop_event=stop_event,
-            ):
-                full_text += chunk
-                yield f"data: {chunk.replace(chr(10), _NEWLINE)}\n\n"
-                await asyncio.sleep(0.01)
-        except Exception as hybrid_err:
-            logger.warning(f"混合引擎失败，回退到态极原生: {hybrid_err}")
-            for chunk in taiji.generate_stream(formatted_prompt, tokenizer, max_new_tokens=512, stop_event=stop_event):
-                full_text += chunk
-                yield f"data: {chunk.replace(chr(10), _NEWLINE)}\n\n"
-                await asyncio.sleep(0.01)
-    else:
-        try:
-            for chunk in taiji.generate_stream(formatted_prompt, tokenizer, max_new_tokens=512, stop_event=stop_event):
-                full_text += chunk
-                yield f"data: {chunk.replace(chr(10), _NEWLINE)}\n\n"
-                await asyncio.sleep(0.01)
-        except Exception as adv_err:
-            logger.warning(f"态极推理失败，回退到基础引擎: {adv_err}")
-            async for chunk in _stream_local_base(request, prompt, app_state, stop_event, collector):
-                yield chunk
-            return
-
-    try:
-        if full_text and collector:
-            collector.collect_conversation(request.prompt, full_text)
-            collector.flush()
-    except Exception:
-        pass
-    yield "data: [DONE]\n\n"
-
 async def _stream_local_base(request, prompt, app_state, stop_event, collector):
     from agent.token_optimizer import compress_history
     compressed = compress_history(request.history, max_rounds=3, max_chars_per_round=300)
@@ -204,11 +125,6 @@ def create_event_generator(request, app_state, collector_factory):
 
             if "cloud" in request.engine:
                 async for chunk in _stream_cloud(request, prompt, collector):
-                    yield chunk
-                return
-
-            if app_state.is_taiji() and ("local" in request.engine or request.engine in ("advanced", "态极", "Taiji", "taiji", "态极 Agent", "Taiji Agent")):
-                async for chunk in _stream_taiji_hybrid(request, prompt, app_state, stop_event, collector):
                     yield chunk
                 return
 

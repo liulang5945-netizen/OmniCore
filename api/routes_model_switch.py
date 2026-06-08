@@ -315,41 +315,5 @@ def _do_switch_model(model_type: str, gguf_path: str, model_name: str):
 
 
 def _load_self_model_switch(config: TrainingConfig, model_path: str):
-    """加载 ModelSelf 原生模型 + 态极多模态引擎（供热切换使用）"""
-    from taiji import load_model, NativeInferenceEngine, TaijiMultimodalEngine
-    from agent.tool_registry import registry
-
-    if not model_path or not os.path.isdir(model_path):
-        app_state.update_switch_status("error", "", f"ModelSelf 模型目录不存在: {model_path}")
-        return
-
-    app_state.update_switch_status("switching", "正在加载 ModelSelf 原生模型...")
-    device = config.resolve_device()
-    model, tokenizer = load_model(model_path, device=device)
-
-    # 注册 OmniCore 的工具到分词器
-    tool_names = [t.name for t in registry.list_tools(enabled_only=True)]
-    for name in tool_names:
-        tokenizer.register_tool(name)
-    model.set_num_tools(len(tokenizer._tool_name_to_id))
-    logger.info(f"已注册 {len(tool_names)} 个工具到 ModelSelf 模型")
-
-    trainer = NativeInferenceEngine(model, tokenizer, device)
-    app_state.update_model(model, tokenizer, trainer, model_path)
-
-    # 加载态极多模态引擎
-    app_state.update_switch_status("switching", "正在加载态极多模态引擎...")
-    try:
-        from core.config import get_external_path
-        taiji = TaijiMultimodalEngine(
-            model, tokenizer, device=device,
-            workspace_path=get_external_path("agent_workspace"),
-            memory_save_path=get_external_path(os.path.join("taiji", "user_data", "memory.json")),
-        )
-        # 注册工具到态极引擎
-        taiji.register_tools(tool_names)
-        app_state.set_taiji_engine(taiji)
-        logger.info("态极多模态引擎已加载")
-    except Exception as e:
-        logger.warning(f"态极多模态引擎加载失败（基础推理仍可用）: {e}")
-        app_state.set_taiji_engine(None)
+    """ModelSelf 模型加载（态极已剥离，此功能不可用）"""
+    app_state.update_switch_status("error", "", "ModelSelf 模型需要态极引擎支持，当前版本不包含态极模块")
