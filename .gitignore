@@ -67,6 +67,8 @@ app.log
 agent_workspace/
 rag_data/
 modelself/user_data/
+user_data/
+security/.jwt_secret
 training_data/
 data/
 checkpoints/
